@@ -123,7 +123,7 @@ function InscrireUtilisateur(){
         }
     })  
     .then((result) => {
-        alert("Bravo, " +dataForm.get("prenom")+ " vous êtes maintenant iscrit, vous pouvez vous connecter.")
+        alert("Bravo, " + dataForm.get("prenom") + " vous êtes maintenant iscrit, vous pouvez vous connecter.")
         document.location.href="/signin"
 })
     .catch((error) => console.error(error));
