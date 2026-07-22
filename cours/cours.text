@@ -1,0 +1,8 @@
+Le back-end d'une application web est responsable du traitement des requêtes provenant du front-end, 
+de l'accès à la base de données, de la logique métier et de la gestion de la sécurité. Les API peuvent 
+être utilisées dans le back-end pour exposer des fonctionnalités ou des données aux clients (le front-end) 
+de manière contrôlée et sécurisée.
+
+En résumé, les API sont des interfaces qui permettent aux composants front-end et back-end d'une application 
+web de communiquer de manière cohérente et structurée.
+

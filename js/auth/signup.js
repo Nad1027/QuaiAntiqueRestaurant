@@ -6,6 +6,7 @@ const inputEmail = document.getElementById("EmailInput");
 const inputPassword = document.getElementById("PasswordInput");
 const inputValidatePassword = document.getElementById("ValidatePasswordInput");
 const btnValidation = document.getElementById("btn-validation-inscription");
+const formInscription = document.getElementById("formulaireInscription");
 
 
 
@@ -15,6 +16,8 @@ inputEmail.addEventListener("keyup", validateForm);
 inputPassword.addEventListener("keyup", validateForm);
 inputValidatePassword.addEventListener("keyup", validateForm);
 
+btnValidation.addEventListener("click", InscrireUtilisateur);
+
 function validateForm(){
     const nomOK = validateRequired(inputNom);
     const prenomOK = validateRequired(inputPrenom);
@@ -22,11 +25,11 @@ function validateForm(){
     const passwordOk = validatePassword(inputPassword);
     const passwordConfirmOk = validateConfirmationPassword(inputPassword, inputValidatePassword)
 
-    if(nomOK && prenomOk && mailOk && passwordOk && passwordConfirmOk){
-        btnValidation.disable = false;
+    if(nomOK && prenomOK && mailOk && passwordOk && passwordConfirmOk){
+        btnValidation.disabled = false;
     }
     else{
-        btnValidation.disable = true;
+        btnValidation.disabled = true;
     }
 }
 
@@ -90,3 +93,38 @@ function validateRequired(input){
     }
 }
 
+function InscrireUtilisateur(){
+    let dataForm = new FormData(formInscription);
+    
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    let raw = JSON.stringify({
+        "firstName": dataForm.get("nom"),  
+        "lastName": dataForm.get("prenom"),  
+        "email": dataForm.get("email"),  
+        "password": dataForm.get("mdp")
+    });
+
+    let requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+
+    fetch(apiUrl+"registration", requestOptions)
+    .then((response) => {
+        if(response.ok){
+            return response.json
+        }
+        else {
+            alert("Erreur lors de l'inscription");
+        }
+    })  
+    .then((result) => {
+        alert("Bravo, " +dataForm.get("prenom")+ " vous êtes maintenant iscrit, vous pouvez vous connecter.")
+        document.location.href="/signin"
+})
+    .catch((error) => console.error(error));
+}
